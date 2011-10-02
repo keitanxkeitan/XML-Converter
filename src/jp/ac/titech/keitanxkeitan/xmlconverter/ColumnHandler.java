@@ -10,17 +10,17 @@ public class ColumnHandler extends ElementHandler {
     static final String DATA_TYPE = "data_type";
     
     String mName;
-    String mType;
+    String mDataType;
     
     protected void initialize(XMLReader reader, ElementHandler parent, Attributes attrs)
             throws SAXException {
         super.initialize(reader, parent, attrs);
         mName = attrs.getValue(NAME);
-        mType = attrs.getValue(DATA_TYPE);
+        mDataType = attrs.getValue(DATA_TYPE);
     }
     
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        setElement(new Column(mName, mType));
+        setElement(new Column(mName, mDataType));
         super.endElement(uri, localName, qName);
     }
     

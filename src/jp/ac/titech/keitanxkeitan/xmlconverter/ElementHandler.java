@@ -50,7 +50,7 @@ public class ElementHandler extends DefaultHandler {
             throw new SAXException("unknown element:" + qName);
         }
         h = fac.create();
-        h.initialize(mReader, mParent, attrs);
+        h.initialize(mReader, this, attrs);
         mReader.setContentHandler(h);
     }
     
