@@ -1,5 +1,6 @@
 package jp.ac.titech.keitanxkeitan.xmlconverter;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,19 +17,25 @@ public class Database implements Element {
         mTables = tables;
     }
     
-    public void createDatabaseFile() throws ClassNotFoundException {
+    public void createDatabaseFile(String appName) throws ClassNotFoundException {
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");
 
         Connection connection = null;
 
         try {
+            String dirPath = String.format("gen/%s/database", appName);
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            String dbPath = String.format("%s/%s.db", dirPath, mName);
             // create a database connection
             // データベースファイルを明記する場合
             // （例）/home/leo/work/mydatabase.db
             // Connection connection = DriverManager.getConnection("jdbc:sqlite:/home/leo/work/mydatabase.db");
             // 詳細は http://www.xerial.org/trac/Xerial/wiki/SQLiteJDBC を参照
-            connection = DriverManager.getConnection("jdbc:sqlite:gen/" + mName + ".db");
+            connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 

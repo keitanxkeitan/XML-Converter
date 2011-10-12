@@ -14,7 +14,7 @@ public class Application implements Element {
     
     public void generate() throws ClassNotFoundException {
         for (Database database : mDatabases) {
-            database.createDatabaseFile();
+            database.createDatabaseFile(mName);
         }
     }
 
