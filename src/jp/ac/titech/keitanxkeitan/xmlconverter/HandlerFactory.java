@@ -8,6 +8,11 @@ public abstract class HandlerFactory {
     static Map<String, HandlerFactory> sHandlers = new HashMap<String, HandlerFactory>();
     
     static {
+        sHandlers.put("application", new HandlerFactory() {
+            public ElementHandler create() {
+                return new ApplicationHandler();
+            }
+        });
         sHandlers.put("database", new HandlerFactory() {
             public ElementHandler create() {
                 return new DatabaseHandler();

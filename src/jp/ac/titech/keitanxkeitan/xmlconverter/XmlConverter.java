@@ -3,9 +3,6 @@ package jp.ac.titech.keitanxkeitan.xmlconverter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -14,12 +11,8 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 public class XmlConverter {
     
-    List<Element> mElements;
+    Application application;
 
-    public XmlConverter() {
-        mElements = new ArrayList<Element>();
-    }
-    
     protected String getRootElementName() {
         return "xmlDescription";
     }
@@ -31,6 +24,7 @@ public class XmlConverter {
      * @throws IOException
      */
     public void read(InputStream stm) throws SAXException, IOException {
+        
         final XMLReader r = XMLReaderFactory.createXMLReader();
         r.setContentHandler(new ElementHandler() {
             { mReader = r; }
@@ -41,7 +35,7 @@ public class XmlConverter {
                 }
             }
             protected void addElement(Element element) {
-                mElements.add(element);
+                application = (Application)element;
             }
             public void endElement(String uri, String localName, String qName)
                     throws SAXException {
@@ -57,9 +51,7 @@ public class XmlConverter {
      * @throws Exception
      */
     public void convert() throws Exception {
-        for (Element element : mElements) {
-            element.encode();
-        }
+        application.generate();
     }
     
     public static void main(String[] args) throws Exception {
