@@ -1,0 +1,3 @@
+XML Converter
+アプリケーションについて記述したXMLファイルを入力として、アプリケーションを構成するソースコードやデータベースを生成する。
+実行するには~/Research/Generator/XML Converterにあるシェルスクリプトxml_converter.shを使う。
