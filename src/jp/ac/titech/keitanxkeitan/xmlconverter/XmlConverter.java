@@ -21,7 +21,7 @@ public class XmlConverter {
     }
     
     protected String getRootElementName() {
-        return "xml_description";
+        return "xmlDescription";
     }
     
     /**

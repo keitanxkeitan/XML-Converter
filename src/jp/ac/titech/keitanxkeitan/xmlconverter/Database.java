@@ -17,13 +17,8 @@ public class Database implements Element {
         String code = "";
         
         for (Table table : mTables) {
-            code += "CREATE TABLE " + table.mName + "(\n";
-            code += "id INTEGER PRIMARY KEY,\n";
-            code += table.encode();
-            code += ");\n";
+            table.encode();
         }
-        
-        System.out.println(code);
         
         return code;
     }

@@ -14,10 +14,12 @@ public class Table implements Element {
     
     @Override
     public String encode() throws Exception {
-        String code = "";
+        String code = "CREATE TABLE " + mName + "(\n";
         for (Column column : mColumns) {
             code += column.encode() + ",\n";
         }
+        code = code.substring(0, code.length() - ",\n".length()) + "\n);";
+        System.out.println(code);
         return code;
     }
 
