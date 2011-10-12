@@ -12,16 +12,10 @@ public class Application implements Element {
         mDatabases = databases;
     }
     
-    public void generate() throws Exception {
+    public void generate() throws ClassNotFoundException {
         for (Database database : mDatabases) {
-            database.encode();
+            database.createDatabaseFile();
         }
-    }
-    
-    @Override
-    public String encode() throws Exception {
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }

@@ -16,15 +16,12 @@ public class Database implements Element {
         mTables = tables;
     }
     
-    @Override
-    public String encode() throws Exception {
-        String code = "";
-        
+    public void createDatabaseFile() throws ClassNotFoundException {
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");
-        
+
         Connection connection = null;
-        
+
         try {
             // create a database connection
             // データベースファイルを明記する場合
@@ -34,9 +31,9 @@ public class Database implements Element {
             connection = DriverManager.getConnection("jdbc:sqlite:gen/" + mName + ".db");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
-            
+
             for (Table table : mTables) {
-                String sql = table.encode();
+                String sql = table.getSql();
                 statement.executeUpdate(sql);    
             }
         } catch (SQLException e) {
@@ -53,8 +50,6 @@ public class Database implements Element {
                 System.err.println(e);
             }
         }
-        
-        return code;
     }
 
 }

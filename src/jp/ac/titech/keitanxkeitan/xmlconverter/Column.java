@@ -19,23 +19,22 @@ public class Column implements Element {
         mIsUnique = isUnique.equals("true") ? true : false;
         // TODO: DEFAULTêßñÒÅACHECKêßñÒÇ…ëŒâûÇ∑ÇÈÅB
     }
-
-    @Override
-    public String encode() throws Exception {
-        String code = mName + " " + mDataType;
+    
+    public String getSql() {
+        String sql = mName + " " + mDataType;
         if (mIsPrimaryKey) {
-            code += " PRIMARY KEY";
+            sql += " PRIMARY KEY";
         }
         if (mIsAutoincrement) {
-            code += " AUTOINCREMENT";
+            sql += " AUTOINCREMENT";
         }
         if (mIsNotNull) {
-            code += " NOT NULL";
+            sql += " NOT NULL";
         }
         if (mIsUnique) {
-            code += " UNIQUE";
+            sql += " UNIQUE";
         }
-        return code;
+        return sql;
     }
 
 }

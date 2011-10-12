@@ -12,15 +12,14 @@ public class Table implements Element {
         mColumns = columns;
     }
     
-    @Override
-    public String encode() throws Exception {
-        String code = "CREATE TABLE " + mName + "(\n";
+    public String getSql() {
+        String sql = "CREATE TABLE " + mName + "(\n";
         for (Column column : mColumns) {
-            code += column.encode() + ",\n";
+            sql += column.getSql() + ",\n";
         }
-        code = code.substring(0, code.length() - ",\n".length()) + "\n);";
-        System.out.println(code);
-        return code;
+        sql = sql.substring(0, sql.length() - ",\n".length()) + "\n);";
+        System.out.println(sql);
+        return sql;         
     }
 
 }
