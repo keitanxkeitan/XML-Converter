@@ -17,6 +17,11 @@ public class Database implements Element {
         mTables = tables;
     }
     
+    /**
+     * データベースファイルを作成する。
+     * @param appName アプリケーションの名前
+     * @throws ClassNotFoundException
+     */
     public void createDatabaseFile(String appName) throws ClassNotFoundException {
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");

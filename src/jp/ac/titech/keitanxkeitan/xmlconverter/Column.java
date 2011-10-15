@@ -20,6 +20,10 @@ public class Column implements Element {
         // TODO: DEFAULT制約、CHECK制約に対応する。
     }
     
+    /**
+     * カラムを定義する SQL コマンドを返す。
+     * @return カラムを定義する SQL コマンド
+     */
     public String getSql() {
         String sql = mName + " " + mDataType;
         if (mIsPrimaryKey) {

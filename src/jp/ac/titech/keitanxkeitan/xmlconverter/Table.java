@@ -12,6 +12,10 @@ public class Table implements Element {
         mColumns = columns;
     }
     
+    /**
+     * テーブルを作成する SQL コマンドを返す。
+     * @return テーブルを作成する SQL コマンド
+     */
     public String getSql() {
         String sql = "CREATE TABLE " + mName + "(\n";
         for (Column column : mColumns) {
