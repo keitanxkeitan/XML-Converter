@@ -63,5 +63,17 @@ public class Database implements Element {
             }
         }
     }
+    
+    /**
+     * ソースファイルを作成する。
+     * @param appName アプリケーションの名前
+     * @param user アプリケーションの開発者の名前
+     * @param organization アプリケーションの開発者が所属する組織の名前
+     */
+    public void createSourceFile(String appName, String user, String organization) {
+        for (Table table : mTables) {
+            table.createSourceFile(appName, user, organization);
+        }
+    }
 
 }

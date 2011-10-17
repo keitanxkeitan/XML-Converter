@@ -19,6 +19,7 @@ public class Application implements Element {
     public void generate() throws ClassNotFoundException {
         for (Database database : mDatabases) {
             database.createDatabaseFile(mName);
+            database.createSourceFile(mName, mUser, mOrganization);
         }
     }
 
