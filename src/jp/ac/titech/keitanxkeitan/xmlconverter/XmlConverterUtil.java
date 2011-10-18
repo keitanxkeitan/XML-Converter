@@ -14,11 +14,11 @@ public class XmlConverterUtil {
     private XmlConverterUtil() {}
     
     /**
-     * 与えられた複合語の名前をアッパーキャメルケースに変換する。
+     * 与えられた複合語をアッパーキャメルケースに変換する。
      * スペース ' ' とアンダースコア '_' を要素語の区切りとして用いる。
      * 例えば "todo_list" という名前は "TodoList" に変換される。
-     * @param word 変換する名前
-     * @return 変換した名前
+     * @param word 変換する複合語
+     * @return 変換した複合語
      */
     public static String toUpperCamelCase(String word) {
         // アンダースコア '_' をスペース ' ' に変換してから
@@ -33,6 +33,21 @@ public class XmlConverterUtil {
             element = element.substring(0, 1).toUpperCase() + element.substring(1);
             word += element;
         }
+        
+        return word;
+    }
+
+    /**
+     * 与えられた複合語をローワーキャメルケースに変換する。
+     * スペース ' ' とアンダースコア '_' を要素語の区切りとして用いる。
+     * 例えば "todo_list" という名前は "todoList" に変換される。
+     * @param word 変換する複合語
+     * @return 変換した複合語
+     */
+    public static String toLowerCamelCase(String word) {
+        word = toUpperCamelCase(word);
+        
+        word = word.substring(0, 1).toLowerCase() + word.substring(1);
         
         return word;
     }
