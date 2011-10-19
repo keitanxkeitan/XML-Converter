@@ -88,7 +88,7 @@ public class XmlConverterUtil {
         StringWriter sw = new StringWriter();
         
         // テンプレートの作成
-        Template template = Velocity.getTemplate("copyright.vm", "EUC-JP");
+        Template template = Velocity.getTemplate("template/copyright.vm", "EUC-JP");
         
         // テンプレートとマージ
         template.merge(context, sw);
