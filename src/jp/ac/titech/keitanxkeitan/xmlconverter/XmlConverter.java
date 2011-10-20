@@ -56,7 +56,7 @@ public class XmlConverter {
     
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
-            System.err.println("usage: java jp.ac.titech.keitanxkeitan.xmlconverter.XmlConverter xmlfile");
+            System.err.println("usage: ./xml_converter.sh xmlfile");
             System.exit(1);
         }
         XmlConverter converter = new XmlConverter();
