@@ -27,7 +27,6 @@ public class Table implements Element {
             sql += column.getSql() + ",\n";
         }
         sql = sql.substring(0, sql.length() - ",\n".length()) + "\n);";
-        System.out.println(sql);
         return sql;         
     }
     
@@ -36,7 +35,7 @@ public class Table implements Element {
      * @return Data Transfer Object クラスの名前
      */
     String getDtoClassName() {
-        String dtoClassName = "Tb" + XmlConverterUtil.toUpperCamelCase(mName);
+        String dtoClassName = "Tb" + CommonUtil.toUpperCamelCase(mName);
         return dtoClassName;
     }
     
@@ -54,7 +53,11 @@ public class Table implements Element {
             fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            // TODO: ファイルの内容を作成する。
+            
+            // ファイルの内容を作成する
+            String copyright = CommonUtil.createCopyright(fileName, appName, user, organization);
+            pw.println(copyright);
+            
             pw.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,13 +13,13 @@ import org.apache.velocity.app.Velocity;
  * @author keitanxkeitan
  *
  */
-public class XmlConverterUtil {
+public class CommonUtil {
 
     /**
      * コンストラクタ
      * インスタンス化禁止
      */
-    private XmlConverterUtil() {}
+    private CommonUtil() {}
     
     /**
      * 与えられた複合語をアッパーキャメルケースに変換する。

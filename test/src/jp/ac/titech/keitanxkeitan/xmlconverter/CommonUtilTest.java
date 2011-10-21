@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class XmlConverterUtilTest {
+public class CommonUtilTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -31,18 +31,18 @@ public class XmlConverterUtilTest {
 
     @Test
     public void testToUpperCamelCase() {
-        assertEquals("TodoList", XmlConverterUtil.toUpperCamelCase("todo_list"));
-        assertEquals("TodoList", XmlConverterUtil.toUpperCamelCase("todo list"));
-        assertEquals("TodoList", XmlConverterUtil.toUpperCamelCase("TodoList"));
-        assertEquals("TodoList", XmlConverterUtil.toUpperCamelCase("todoList"));
+        assertEquals("TodoList", CommonUtil.toUpperCamelCase("todo_list"));
+        assertEquals("TodoList", CommonUtil.toUpperCamelCase("todo list"));
+        assertEquals("TodoList", CommonUtil.toUpperCamelCase("TodoList"));
+        assertEquals("TodoList", CommonUtil.toUpperCamelCase("todoList"));
     }
 
     @Test
     public void testToLowerCamelCase() {
-        assertEquals("todoList", XmlConverterUtil.toLowerCamelCase("todo_list"));
-        assertEquals("todoList", XmlConverterUtil.toLowerCamelCase("todo list"));
-        assertEquals("todoList", XmlConverterUtil.toLowerCamelCase("TodoList"));
-        assertEquals("todoList", XmlConverterUtil.toLowerCamelCase("todoList"));
+        assertEquals("todoList", CommonUtil.toLowerCamelCase("todo_list"));
+        assertEquals("todoList", CommonUtil.toLowerCamelCase("todo list"));
+        assertEquals("todoList", CommonUtil.toLowerCamelCase("TodoList"));
+        assertEquals("todoList", CommonUtil.toLowerCamelCase("todoList"));
     }
     
     @Test
@@ -59,7 +59,7 @@ public class XmlConverterUtilTest {
                 "// Created by Keita Tsutsui on " + date + ".\n" +
                 "// Copyright " + year + " keitanxkeitan. All rights reserved.\n" +
                 "//";
-        String actual = XmlConverterUtil.createCopyright("TbTodoList.h", "TodoList", "Keita Tsutsui", "keitanxkeitan");
+        String actual = CommonUtil.createCopyright("TbTodoList.h", "TodoList", "Keita Tsutsui", "keitanxkeitan");
         assertEquals(expected, actual);
     }
 
