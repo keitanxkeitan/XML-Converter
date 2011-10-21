@@ -65,5 +65,51 @@ public class ObjectivecUtilTest {
         actual = ObjectivecUtil.toDataTypeStringWithSpace(DataType.BLOB);
         assertEquals(expected, actual);
     }
+    
+    @Test
+    public void testCreateVariableDeclaration() {
+        String expected;
+        String actual;
+        
+        expected = "int hoge";
+        actual = ObjectivecUtil.createVariableDeclaration(DataType.INTEGER, "hoge");
+        assertEquals(expected, actual);
+        
+        expected = "float foo";
+        actual = ObjectivecUtil.createVariableDeclaration(DataType.REAL, "foo");
+        assertEquals(expected, actual);
+        
+        expected = "NSString *bar";
+        actual = ObjectivecUtil.createVariableDeclaration(DataType.TEXT, "bar");
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testCreateVariableDeclarationStatement() {
+        String expected;
+        String actual;
+        
+        expected = "int hoge;";
+        actual = ObjectivecUtil.createVariableDeclarationStatement(DataType.INTEGER, "hoge");
+        assertEquals(expected, actual);
+        
+        expected = "float foo;";
+        actual = ObjectivecUtil.createVariableDeclarationStatement(DataType.REAL, "foo");
+        assertEquals(expected, actual);
+        
+        expected = "NSString *bar;";
+        actual = ObjectivecUtil.createVariableDeclarationStatement(DataType.TEXT, "bar");
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testToClassMemberVariableName() {
+        String expected;
+        String actual;
+        
+        expected = "hogeFoo_";
+        actual = ObjectivecUtil.toClassMemberVariableName("hoge_foo");
+        assertEquals(expected, actual);
+    }
 
 }

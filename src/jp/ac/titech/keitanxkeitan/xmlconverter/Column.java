@@ -1,7 +1,5 @@
 package jp.ac.titech.keitanxkeitan.xmlconverter;
 
-import javax.xml.datatype.DatatypeConfigurationException;
-
 public class Column implements Element {
 
     String mName;
@@ -45,8 +43,8 @@ public class Column implements Element {
     
     public String getObjcClassMemberVariableDeclaration() {
         String ret = new String();
-        ret += ObjectivecUtil.toDataTypeStringWithSpace(mDataType) +
-                CommonUtil.toLowerCamelCase(mName) + "_";
+        ret += ObjectivecUtil.createVariableDeclarationStatement(mDataType,
+                ObjectivecUtil.toClassMemberVariableName(mName));
         return ret;
     }
 

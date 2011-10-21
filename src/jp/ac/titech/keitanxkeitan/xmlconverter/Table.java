@@ -60,7 +60,8 @@ public class Table implements Element {
             
             String variableDeclarations = new String();
             for (Column column : mColumns) {
-                variableDeclarations += column.getObjcClassMemberVariableDeclaration() + ";\n";
+                variableDeclarations += ObjectivecUtil.INDENT +
+                        column.getObjcClassMemberVariableDeclaration() + "\n";
             }
             pw.println(variableDeclarations);
             
