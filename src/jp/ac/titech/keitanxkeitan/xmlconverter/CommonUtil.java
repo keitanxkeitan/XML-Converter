@@ -9,7 +9,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 /**
- * XML Converter で扱うユーティリティクラス
+ * XML Converter で共通して扱うユーティリティクラス
  * @author keitanxkeitan
  *
  */
