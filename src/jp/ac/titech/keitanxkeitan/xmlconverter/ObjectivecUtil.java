@@ -17,16 +17,42 @@ public class ObjectivecUtil {
      * インポート文を作成する。
      * @param fileName ヘッダファイルのパス
      * @param isPublic 公開ヘッダファイルかどうか
-     * @return
+     * @return 作成したインポート文
      */
     public static String createImportSentence(String fileName, boolean isPublic) {
-        String importSentence = new String();
+        String ret = new String();
         if (isPublic) {
-            importSentence = "#import <" + fileName + ">";
+            ret = "#import <" + fileName + ">";
         } else {
-            importSentence = "#import \"" + fileName + "\"";
+            ret = "#import \"" + fileName + "\"";
         }
-        return importSentence;
+        return ret;
+    }
+    
+    /**
+     * 与えられた DataType 型のデータ型を
+     * Objective-C で対応するデータ型に変換する。
+     * @param dataType 変換するデータ型
+     * @return 変換したデータ型
+     */
+    public static String toDataTypeStringWithSpace(DataType dataType) {
+        String ret = new String();
+        switch (dataType) {
+        case NULL:
+            break;
+        case INTEGER:
+            ret = "int ";
+            break;
+        case REAL:
+            ret = "float ";
+            break;
+        case TEXT:
+            ret = "NSString *";
+            break;
+        case BLOB:
+            break;
+        }
+        return ret;
     }
     
 }

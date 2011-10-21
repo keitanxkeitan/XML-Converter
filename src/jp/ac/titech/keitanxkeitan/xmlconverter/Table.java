@@ -58,6 +58,12 @@ public class Table implements Element {
             String copyright = CommonUtil.createCopyright(fileName, appName, user, organization);
             pw.println(copyright);
             
+            String variableDeclarations = new String();
+            for (Column column : mColumns) {
+                variableDeclarations += column.getObjcClassMemberVariableDeclaration() + ";\n";
+            }
+            pw.println(variableDeclarations);
+            
             pw.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,9 +1,11 @@
 package jp.ac.titech.keitanxkeitan.xmlconverter;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 public class Column implements Element {
 
     String mName;
-    String mDataType;
+    DataType mDataType;
     boolean mIsPrimaryKey;
     boolean mIsAutoincrement;
     boolean mIsNotNull;
@@ -12,7 +14,7 @@ public class Column implements Element {
     Column(String name, String dataType, String isPrimaryKey, String isAutoincrement,
             String isNotNull, String isUnique, String default_, String check) {
         mName = name;
-        mDataType = dataType;
+        mDataType = DataType.valueOf(dataType);
         mIsPrimaryKey = isPrimaryKey.equals("true") ? true : false;
         mIsAutoincrement = isAutoincrement.equals("true") ? true : false;
         mIsNotNull = isNotNull.equals("true") ? true : false;
@@ -39,6 +41,13 @@ public class Column implements Element {
             sql += " UNIQUE";
         }
         return sql;
+    }
+    
+    public String getObjcClassMemberVariableDeclaration() {
+        String ret = new String();
+        ret += ObjectivecUtil.toDataTypeStringWithSpace(mDataType) +
+                CommonUtil.toLowerCamelCase(mName) + "_";
+        return ret;
     }
 
 }
