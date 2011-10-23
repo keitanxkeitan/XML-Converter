@@ -41,28 +41,28 @@ public class ObjectivecUtilTest {
     }
     
     @Test
-    public void testToDataTypeStringWithSpace() {
+    public void testToDataTypeString() {
         String expected;
         String actual;
         
         expected = "";
-        actual = ObjectivecUtil.toDataTypeStringWithSpace(DataType.NULL);
+        actual = ObjectivecUtil.toDataTypeString(DataType.NULL);
         assertEquals(expected, actual);
         
-        expected = "int ";
-        actual = ObjectivecUtil.toDataTypeStringWithSpace(DataType.INTEGER);
+        expected = "int";
+        actual = ObjectivecUtil.toDataTypeString(DataType.INTEGER);
         assertEquals(expected, actual);
         
-        expected = "float ";
-        actual = ObjectivecUtil.toDataTypeStringWithSpace(DataType.REAL);
+        expected = "float";
+        actual = ObjectivecUtil.toDataTypeString(DataType.REAL);
         assertEquals(expected, actual);
         
         expected = "NSString *";
-        actual = ObjectivecUtil.toDataTypeStringWithSpace(DataType.TEXT);
+        actual = ObjectivecUtil.toDataTypeString(DataType.TEXT);
         assertEquals(expected, actual);
         
         expected = "";
-        actual = ObjectivecUtil.toDataTypeStringWithSpace(DataType.BLOB);
+        actual = ObjectivecUtil.toDataTypeString(DataType.BLOB);
         assertEquals(expected, actual);
     }
     
@@ -109,6 +109,24 @@ public class ObjectivecUtilTest {
         
         expected = "hogeFoo_";
         actual = ObjectivecUtil.toClassMemberVariableName("hoge_foo");
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testCreateProperty() {
+        String expected;
+        String actual;
+        
+        expected = "@property (nonatomic, assign) int hoge;";
+        actual = ObjectivecUtil.createProperty(DataType.INTEGER, "hoge");
+        assertEquals(expected, actual);
+        
+        expected = "@property (nonatomic, assign) float foo;";
+        actual = ObjectivecUtil.createProperty(DataType.REAL, "foo");
+        assertEquals(expected, actual);
+        
+        expected = "@property (nonatomic, copy) NSString *bar;";
+        actual = ObjectivecUtil.createProperty(DataType.TEXT, "bar");
         assertEquals(expected, actual);
     }
 

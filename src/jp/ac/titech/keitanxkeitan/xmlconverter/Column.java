@@ -41,11 +41,38 @@ public class Column implements Element {
         return sql;
     }
     
+    /**
+     * クラスメンバ変数宣言を得る。
+     * @return クラスメンバ変数宣言
+     */
     public String getObjcClassMemberVariableDeclaration() {
         String ret = new String();
         ret += ObjectivecUtil.createVariableDeclarationStatement(mDataType,
                 ObjectivecUtil.toClassMemberVariableName(mName));
         return ret;
     }
-
+    
+    /**
+     * プロパティを得る。
+     * @return プロパティ
+     */
+    public String getProperty() {
+        String ret = new String();
+        ret += ObjectivecUtil.createProperty(mDataType,
+                CommonUtil.toLowerCamelCase(mName));
+        return ret;
+    }
+    
+    /**
+     * 引数を得る。
+     * @return 引数
+     */
+    public String getArgument() {
+        String ret = new String();
+        ret += CommonUtil.toLowerCamelCase(mName) + ":(" +
+                ObjectivecUtil.toDataTypeString(mDataType) + ")" +
+                CommonUtil.toLowerCamelCase(mName);
+        return ret;
+    }
+    
 }

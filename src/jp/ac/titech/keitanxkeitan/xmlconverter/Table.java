@@ -55,15 +55,48 @@ public class Table implements Element {
             PrintWriter pw = new PrintWriter(bw);
             
             // ファイルの内容を作成する
-            String copyright = CommonUtil.createCopyright(fileName, appName, user, organization);
-            pw.println(copyright);
             
+            // コピーライト文を作成する
+            String copyright = CommonUtil.createCopyright(fileName, appName, user, organization);
+            
+            // インタフェース宣言を作成する
+            String className = "Tb" + CommonUtil.toUpperCamelCase(mName);
+            String superClassName = "NSObject";
+            
+            // クラスメンバ変数宣言を作成する
             String variableDeclarations = new String();
             for (Column column : mColumns) {
                 variableDeclarations += ObjectivecUtil.INDENT +
                         column.getObjcClassMemberVariableDeclaration() + "\n";
             }
-            pw.println(variableDeclarations);
+            variableDeclarations =
+                    variableDeclarations.substring(0, variableDeclarations.length() - 1);
+                        
+            // プロパティ宣言を作成する
+            String propertyDeclarations = new String();
+            for (Column column : mColumns) {
+                propertyDeclarations += column.getProperty() + "\n";
+            }
+            propertyDeclarations =
+                    propertyDeclarations.substring(0, propertyDeclarations.length() - 1);
+            
+            // イニシャライザのプロトタイプ宣言を作成する
+            String prototypeDeclarations = new String();
+            prototypeDeclarations += "- (id)initWith";
+            boolean isFirst = true;
+            for (Column column : mColumns) {
+                if (isFirst) {
+                    isFirst = false;
+                    prototypeDeclarations += CommonUtil.toUpperCamelCase(column.getArgument());
+                } else {
+                    prototypeDeclarations += " " + column.getArgument();
+                }
+            }
+
+            String headerFile = ObjectivecUtil.createHeaderFile(copyright, className,
+                    superClassName, variableDeclarations, propertyDeclarations,
+                    prototypeDeclarations);
+            pw.println(headerFile);
             
             pw.close();
         } catch (IOException e) {

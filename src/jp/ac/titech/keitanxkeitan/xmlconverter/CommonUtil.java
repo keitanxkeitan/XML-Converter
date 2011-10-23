@@ -3,7 +3,6 @@ package jp.ac.titech.keitanxkeitan.xmlconverter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -78,6 +77,9 @@ public class CommonUtil {
         // Copyright の情報を作成
         Copyright copyright = new Copyright(fileName, appName, user, date, year, organization);
         
+        Velocity.setProperty("file.resource.loader.path",
+                "/Users/keitanxkeitan/Eclipse Workspace/research/XML Converter/template");
+
         // Velocity の初期化
         Velocity.init();
         
@@ -88,7 +90,7 @@ public class CommonUtil {
         StringWriter sw = new StringWriter();
         
         // テンプレートの作成
-        Template template = Velocity.getTemplate("template/copyright.vm", "EUC-JP");
+        Template template = Velocity.getTemplate("copyright.vm", "EUC-JP");
         
         // テンプレートとマージ
         template.merge(context, sw);
