@@ -36,6 +36,15 @@ public class Table implements Element {
         String dtoClassName = "Tb" + CommonUtil.toUpperCamelCase(mName);
         return dtoClassName;
     }
+    
+    /**
+     * Data Access Object クラスの名前を返す。
+     * @return Data Access Object クラスの名前
+     */
+    String getDaoClassName() {
+        String daoClassName = "Tb" + CommonUtil.toUpperCamelCase(mName) + "Dao";
+        return daoClassName;
+    }
         
     /**
      * Data Transfer Object クラスのヘッダファイルを作成する。
@@ -197,6 +206,54 @@ public class Table implements Element {
     }
     
     /**
+     * Data Access Object クラスのヘッダファイルを作成する。
+     * @param appName アプリケーションの名前
+     * @param user アプリケーションの開発者の名前
+     * @param organization アプリケーションの開発者が所属する組織の名前
+     */
+    void createDaoClassHeaderFile(String appName, String user, String organization) {
+        try {
+            String dirPath = String.format("gen/%s/objc", appName);
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            
+            String fileName = getDaoClassName() + ".h";
+            String filePath = String.format("%s/%s", dirPath, fileName);
+            PrintWriter pw = CommonUtil.getPrintBufferedFileWriter(filePath);
+            
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Data Access Object クラスの実装ファイルを作成する。
+     * @param appName アプリケーションの名前
+     * @param user アプリケーションの開発者の名前
+     * @param organization アプリケーションの開発者が所属する組織の名前
+     */
+    void createDaoClassImplementationFile(String appName, String user, String organization) {
+        try {
+            String dirPath = String.format("gen/%s/objc", appName);
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            
+            String fileName = getDaoClassName() + ".m";
+            String filePath = String.format("%s/%s", dirPath, fileName);
+            PrintWriter pw = CommonUtil.getPrintBufferedFileWriter(filePath);
+            
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
      * ソースファイルを作成する。
      * @param appName アプリケーションの名前
      * @param user アプリケーションの開発者の名前
@@ -205,5 +262,7 @@ public class Table implements Element {
     void createSourceFile(String appName, String user, String organization) {
         createDtoClassHeaderFile(appName, user, organization);
         createDtoClassImplementationFile(appName, user, organization);
+        createDaoClassHeaderFile(appName, user, organization);
+        createDaoClassImplementationFile(appName, user, organization);
     }
 }
