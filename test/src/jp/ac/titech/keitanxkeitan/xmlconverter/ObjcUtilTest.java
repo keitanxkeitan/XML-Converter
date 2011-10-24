@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ObjectivecUtilTest {
+public class ObjcUtilTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -32,11 +32,11 @@ public class ObjectivecUtilTest {
         String actual;
 
         expected = "#import <Foundation/Foundation.h>";
-        actual = ObjectivecUtil.createImportSentence("Foundation/Foundation.h", true);
+        actual = ObjcUtil.createImportSentence("Foundation/Foundation.h", true);
         assertEquals(expected, actual);
 
         expected = "#import \"TbTodo.h\"";
-        actual = ObjectivecUtil.createImportSentence("TbTodo.h", false);
+        actual = ObjcUtil.createImportSentence("TbTodo.h", false);
         assertEquals(expected, actual);
     }
     
@@ -46,23 +46,23 @@ public class ObjectivecUtilTest {
         String actual;
         
         expected = "";
-        actual = ObjectivecUtil.toDataTypeString(DataType.NULL);
+        actual = ObjcUtil.toDataTypeString(DataType.NULL);
         assertEquals(expected, actual);
         
         expected = "int";
-        actual = ObjectivecUtil.toDataTypeString(DataType.INTEGER);
+        actual = ObjcUtil.toDataTypeString(DataType.INTEGER);
         assertEquals(expected, actual);
         
         expected = "float";
-        actual = ObjectivecUtil.toDataTypeString(DataType.REAL);
+        actual = ObjcUtil.toDataTypeString(DataType.REAL);
         assertEquals(expected, actual);
         
         expected = "NSString *";
-        actual = ObjectivecUtil.toDataTypeString(DataType.TEXT);
+        actual = ObjcUtil.toDataTypeString(DataType.TEXT);
         assertEquals(expected, actual);
         
         expected = "";
-        actual = ObjectivecUtil.toDataTypeString(DataType.BLOB);
+        actual = ObjcUtil.toDataTypeString(DataType.BLOB);
         assertEquals(expected, actual);
     }
     
@@ -72,15 +72,15 @@ public class ObjectivecUtilTest {
         String actual;
         
         expected = "int hoge";
-        actual = ObjectivecUtil.createVariableDeclaration(DataType.INTEGER, "hoge");
+        actual = ObjcUtil.createVariableDeclaration(DataType.INTEGER, "hoge");
         assertEquals(expected, actual);
         
         expected = "float foo";
-        actual = ObjectivecUtil.createVariableDeclaration(DataType.REAL, "foo");
+        actual = ObjcUtil.createVariableDeclaration(DataType.REAL, "foo");
         assertEquals(expected, actual);
         
         expected = "NSString *bar";
-        actual = ObjectivecUtil.createVariableDeclaration(DataType.TEXT, "bar");
+        actual = ObjcUtil.createVariableDeclaration(DataType.TEXT, "bar");
         assertEquals(expected, actual);
     }
     
@@ -90,15 +90,15 @@ public class ObjectivecUtilTest {
         String actual;
         
         expected = "int hoge;";
-        actual = ObjectivecUtil.createVariableDeclarationStatement(DataType.INTEGER, "hoge");
+        actual = ObjcUtil.createVariableDeclarationStatement(DataType.INTEGER, "hoge");
         assertEquals(expected, actual);
         
         expected = "float foo;";
-        actual = ObjectivecUtil.createVariableDeclarationStatement(DataType.REAL, "foo");
+        actual = ObjcUtil.createVariableDeclarationStatement(DataType.REAL, "foo");
         assertEquals(expected, actual);
         
         expected = "NSString *bar;";
-        actual = ObjectivecUtil.createVariableDeclarationStatement(DataType.TEXT, "bar");
+        actual = ObjcUtil.createVariableDeclarationStatement(DataType.TEXT, "bar");
         assertEquals(expected, actual);
     }
     
@@ -108,7 +108,7 @@ public class ObjectivecUtilTest {
         String actual;
         
         expected = "hogeFoo_";
-        actual = ObjectivecUtil.toClassMemberVariableName("hoge_foo");
+        actual = ObjcUtil.toClassMemberVariableName("hoge_foo");
         assertEquals(expected, actual);
     }
     
@@ -118,15 +118,15 @@ public class ObjectivecUtilTest {
         String actual;
         
         expected = "@property (nonatomic, assign) int hoge;";
-        actual = ObjectivecUtil.createProperty(DataType.INTEGER, "hoge");
+        actual = ObjcUtil.createProperty(DataType.INTEGER, "hoge");
         assertEquals(expected, actual);
         
         expected = "@property (nonatomic, assign) float foo;";
-        actual = ObjectivecUtil.createProperty(DataType.REAL, "foo");
+        actual = ObjcUtil.createProperty(DataType.REAL, "foo");
         assertEquals(expected, actual);
         
         expected = "@property (nonatomic, copy) NSString *bar;";
-        actual = ObjectivecUtil.createProperty(DataType.TEXT, "bar");
+        actual = ObjcUtil.createProperty(DataType.TEXT, "bar");
         assertEquals(expected, actual);
     }
 

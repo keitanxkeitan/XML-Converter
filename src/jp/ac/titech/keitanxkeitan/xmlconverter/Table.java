@@ -38,7 +38,7 @@ public class Table implements Element {
         String dtoClassName = "Tb" + CommonUtil.toUpperCamelCase(mName);
         return dtoClassName;
     }
-    
+        
     /**
      * Data Transfer Object クラスのヘッダファイルを作成する。
      * @param appName アプリケーションの名前
@@ -47,8 +47,16 @@ public class Table implements Element {
      */
     void createDtoClassHeaderFile(String appName, String user, String organization) {
         try {
+            String dirPath = String.format("gen/%s/objc", appName);
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
             String fileName = getDtoClassName() + ".h";
-            File file = new File(fileName);
+            String filePath = String.format("%s/%s", dirPath, fileName);
+
+            File file = new File(filePath);
             FileWriter fw;
             fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -66,7 +74,7 @@ public class Table implements Element {
             // クラスメンバ変数宣言を作成する
             String variableDeclarations = new String();
             for (Column column : mColumns) {
-                variableDeclarations += ObjectivecUtil.INDENT +
+                variableDeclarations += ObjcUtil.INDENT +
                         column.getObjcClassMemberVariableDeclaration() + "\n";
             }
             variableDeclarations =
@@ -93,7 +101,7 @@ public class Table implements Element {
                 }
             }
 
-            String headerFile = ObjectivecUtil.createHeaderFile(copyright, className,
+            String headerFile = ObjcUtil.createHeaderFile(copyright, className,
                     superClassName, variableDeclarations, propertyDeclarations,
                     prototypeDeclarations);
             pw.println(headerFile);

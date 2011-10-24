@@ -47,8 +47,8 @@ public class Column implements Element {
      */
     public String getObjcClassMemberVariableDeclaration() {
         String ret = new String();
-        ret += ObjectivecUtil.createVariableDeclarationStatement(mDataType,
-                ObjectivecUtil.toClassMemberVariableName(mName));
+        ret += ObjcUtil.createVariableDeclarationStatement(mDataType,
+                ObjcUtil.toClassMemberVariableName(mName));
         return ret;
     }
     
@@ -58,7 +58,7 @@ public class Column implements Element {
      */
     public String getProperty() {
         String ret = new String();
-        ret += ObjectivecUtil.createProperty(mDataType,
+        ret += ObjcUtil.createProperty(mDataType,
                 CommonUtil.toLowerCamelCase(mName));
         return ret;
     }
@@ -70,7 +70,7 @@ public class Column implements Element {
     public String getArgument() {
         String ret = new String();
         ret += CommonUtil.toLowerCamelCase(mName) + ":(" +
-                ObjectivecUtil.toDataTypeString(mDataType) + ")" +
+                ObjcUtil.toDataTypeString(mDataType) + ")" +
                 CommonUtil.toLowerCamelCase(mName);
         return ret;
     }

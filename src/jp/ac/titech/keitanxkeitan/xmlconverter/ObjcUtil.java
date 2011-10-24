@@ -10,7 +10,7 @@ import org.apache.velocity.app.Velocity;
  * @author keitanxkeitan
  *
  */
-public class ObjectivecUtil {
+public class ObjcUtil {
     
     public static final String INDENT = "  ";
 
@@ -18,7 +18,7 @@ public class ObjectivecUtil {
      * コンストラクタ
      * インスタンス化禁止
      */
-    private ObjectivecUtil() {}
+    private ObjcUtil() {}
     
     /**
      * インポート文を作成する。
