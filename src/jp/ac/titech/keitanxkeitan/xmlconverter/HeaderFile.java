@@ -3,6 +3,7 @@ package jp.ac.titech.keitanxkeitan.xmlconverter;
 public class HeaderFile {
     
     String mCopyright;
+    String mImportSentences;
     String mClassName;
     String mSuperClassName;
     String mVariableDeclarations;
@@ -10,10 +11,11 @@ public class HeaderFile {
     String mPrototypeDeclarations;
     
     public HeaderFile() {}
-    public HeaderFile(String copyright, String className, String superClassName,
-            String variableDeclarations, String propertyDeclarations,
+    public HeaderFile(String copyright, String importSentences, String className,
+            String superClassName, String variableDeclarations, String propertyDeclarations,
             String prototypeDeclarations) {
         mCopyright = copyright;
+        mImportSentences = importSentences;
         mClassName = className;
         mSuperClassName = superClassName;
         mVariableDeclarations = variableDeclarations;
@@ -23,6 +25,10 @@ public class HeaderFile {
     
     public String getCopyright() {
         return mCopyright;
+    }
+    
+    public String getImportSentences() {
+        return mImportSentences;
     }
     
     public String getClassName() {

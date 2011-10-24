@@ -129,5 +129,59 @@ public class ObjcUtilTest {
         actual = ObjcUtil.createProperty(DataType.TEXT, "bar");
         assertEquals(expected, actual);
     }
+    
+    @Test
+    public void testCreateSynthesize() {
+        String expected;
+        String actual;
+        
+        expected = "@synthesize hoge = hoge_;";
+        actual = ObjcUtil.createSynthesize("hoge");
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testCreateRetainSentence() {
+        String expected;
+        String actual;
+        
+        expected = "hoge";
+        actual = ObjcUtil.createRetainSentence(DataType.INTEGER, "hoge");
+        assertEquals(expected, actual);
+        
+        expected = "foo";
+        actual = ObjcUtil.createRetainSentence(DataType.REAL, "foo");
+        assertEquals(expected, actual);
+        
+        expected = "[bar copy]";
+        actual = ObjcUtil.createRetainSentence(DataType.TEXT, "bar");
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testDoesNeedRelease() {
+        boolean expected;
+        boolean actual;
+        
+        expected = false;
+        actual = ObjcUtil.doesNeedRelease(DataType.NULL);
+        assertEquals(expected, actual);
+        
+        expected = false;
+        actual = ObjcUtil.doesNeedRelease(DataType.INTEGER);
+        assertEquals(expected, actual);
+        
+        expected = false;
+        actual = ObjcUtil.doesNeedRelease(DataType.REAL);
+        assertEquals(expected, actual);
+        
+        expected = true;
+        actual = ObjcUtil.doesNeedRelease(DataType.TEXT);
+        assertEquals(expected, actual);
+        
+        expected = true;
+        actual = ObjcUtil.doesNeedRelease(DataType.BLOB);
+        assertEquals(expected, actual);
+    }
 
 }

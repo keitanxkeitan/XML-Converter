@@ -60,6 +60,9 @@ public class Table implements Element {
             // コピーライト文を作成する
             String copyright = CommonUtil.createCopyright(fileName, appName, user, organization);
             
+            // インポート文を作成する
+            String importSentences = ObjcUtil.createImportSentence("Foundation/Foundation.h", true);
+            
             // インタフェース宣言を作成する
             String className = "Tb" + CommonUtil.toUpperCamelCase(mName);
             String superClassName = "NSObject";
@@ -94,10 +97,98 @@ public class Table implements Element {
                 }
             }
 
-            String headerFile = ObjcUtil.createHeaderFile(copyright, className,
+            String headerFile = ObjcUtil.createHeaderFile(copyright, importSentences, className,
                     superClassName, variableDeclarations, propertyDeclarations,
                     prototypeDeclarations);
             pw.println(headerFile);
+            
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Data Transfer Object クラスの実装ファイルを作成する。
+     * @param appName アプリケーションの名前
+     * @param user アプリケーションの開発者の名前
+     * @param organization アプリケーションの開発者が所属する組織の名前
+     */
+    void createDtoClassImplementationFile(String appName, String user, String organization) {
+        try {
+            String dirPath = String.format("gen/%s/objc", appName);
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            
+            String fileName = getDtoClassName() + ".m";
+            String filePath = String.format("%s/%s", dirPath, fileName);
+            PrintWriter pw = CommonUtil.getPrintBufferedFileWriter(filePath);
+            
+            // ファイルの内容を作成する
+            
+            // コピーライト文を作成する
+            String copyright = CommonUtil.createCopyright(fileName, appName, user, organization);
+
+            // クラス名を作成する
+            String className = "Tb" + CommonUtil.toUpperCamelCase(mName);
+            
+            // インポート文を作成する
+            String importSentences = ObjcUtil.createImportSentence(className + ".h", false);
+            
+            // シンセサイズを作成する
+            String synthesizes = new String();
+            for (Column column : mColumns) {
+                synthesizes += column.getSynthesize() + "\n";
+            }
+            synthesizes = synthesizes.substring(0, synthesizes.length() - 1);
+            
+            // メソッドを作成する
+            String methods = new String();
+            
+            // イニシャライザを作成する
+            methods += "- (id)initWith";
+            boolean isFirst = true;
+            for (Column column : mColumns) {
+                if (isFirst) {
+                    isFirst = false;
+                    methods += CommonUtil.toUpperCamelCase(column.getArgument());
+                } else {
+                    methods += " " + column.getArgument();
+                }
+            }
+            methods += "{\n";
+            methods += ObjcUtil.INDENT + "self = [super init];\n";
+            methods += ObjcUtil.INDENT + "if (self) {\n";
+            
+            for (Column column : mColumns) {
+                methods += ObjcUtil.INDENT + ObjcUtil.INDENT + column.getInitialize() + "\n";
+            }
+            
+            methods += ObjcUtil.INDENT + "}\n";
+            methods += ObjcUtil.INDENT + "return self;\n";
+            methods += "}\n";
+            methods += "\n";
+            
+            // dealloc を作成する
+            String releases = new String();
+            for (Column column : mColumns) {
+                String release = column.getRelease();
+                if (release.length() > 0) {
+                    releases += ObjcUtil.INDENT + release + ";\n";
+                }
+            }
+            if (releases.length() > 0) {
+                methods += "- (void)dealloc {\n";
+                methods += releases;
+                methods += ObjcUtil.INDENT + "[super dealloc];\n";
+                methods += "}";
+            }
+            
+            String implementationFile = ObjcUtil.createImplementationFile(copyright,
+                    importSentences, className, synthesizes, methods);
+            pw.println(implementationFile);
             
             pw.close();
         } catch (IOException e) {
@@ -113,5 +204,6 @@ public class Table implements Element {
      */
     void createSourceFile(String appName, String user, String organization) {
         createDtoClassHeaderFile(appName, user, organization);
+        createDtoClassImplementationFile(appName, user, organization);
     }
 }

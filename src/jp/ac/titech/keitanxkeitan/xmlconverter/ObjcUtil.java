@@ -130,6 +130,7 @@ public class ObjcUtil {
     /**
      * ヘッダファイルを作成する。
      * @param copyright コピーライト文
+     * @param importSentences インポート文
      * @param className クラス名
      * @param superClassName スーパークラス名
      * @param variableDeclarations クラスメンバ変数宣言
@@ -137,12 +138,12 @@ public class ObjcUtil {
      * @param prototypeDeclarations プロトタイプ宣言
      * @return
      */
-    public static String createHeaderFile(String copyright, String className,
-            String superClassName, String variableDeclarations, String propertyDeclarations,
-            String prototypeDeclarations) {
+    public static String createHeaderFile(String copyright, String importSentences,
+            String className, String superClassName, String variableDeclarations,
+            String propertyDeclarations, String prototypeDeclarations) {
         // HeaderFile の情報を作成
-        HeaderFile headerFile = new HeaderFile(copyright, className, superClassName,
-                variableDeclarations, propertyDeclarations, prototypeDeclarations);   
+        HeaderFile headerFile = new HeaderFile(copyright, importSentences, className,
+                superClassName, variableDeclarations, propertyDeclarations, prototypeDeclarations);
                                         
         Velocity.setProperty("file.resource.loader.path",
                 "/Users/keitanxkeitan/Eclipse Workspace/research/XML Converter/template");
@@ -165,6 +166,98 @@ public class ObjcUtil {
         // マージしたデータは Writer オブジェクトである sw が持っているのでそれを文字列として取得
         String ret = sw.toString();
         sw.flush();
+        return ret;
+    }
+    
+    /**
+     * 実装ファイルを作成する。
+     * @param copyright コピーライト文
+     * @param importSentences インポート文
+     * @param className クラス名
+     * @param synthesizes シンセサイズ
+     * @param methods メソッド
+     * @return
+     */
+    public static String createImplementationFile(String copyright, String importSentences,
+            String className, String synthesizes, String methods) {
+        // ImplementationFile の情報を作成
+        ImplementationFile implementationFile = new ImplementationFile(copyright, importSentences,
+                className, synthesizes, methods);
+        
+        Velocity.setProperty("file.resource.loader.path",
+                "/Users/keitanxkeitan/Eclipse Workspace/research/XML Converter/template");
+
+        // Velocity の初期化
+        Velocity.init();
+        
+        // Velocity のコンテキストに値を設定
+        VelocityContext context = new VelocityContext();
+        context.put("implementationFile", implementationFile);
+        
+        StringWriter sw = new StringWriter();
+        
+        // テンプレートの作成
+        Template template = Velocity.getTemplate("implementation_file.vm", "EUC-JP");
+        
+        // テンプレートとマージ
+        template.merge(context, sw);
+        
+        // マージしたデータは Writer オブジェクトである sw が持っているのでそれを文字列として取得
+        String ret = sw.toString();
+        sw.flush();
+        return ret;
+    }
+    
+    /**
+     * 与えられた変数名からシンセサイズを作成する。
+     * @param varName 変数名
+     * @return シンセサイズ
+     */
+    public static String createSynthesize(String varName) {
+        return "@synthesize " + varName + " = " + toClassMemberVariableName(varName) + ";";
+    }
+    
+    /**
+     * 与えられたデータ型と変数名から変数を保持する文を作成する。
+     * @param dataType データ型
+     * @param varName 変数名
+     * @return 作成した変数を保持する文
+     */
+    public static String createRetainSentence(DataType dataType, String varName) {
+        String ret = new String();
+        switch (dataType) {
+        case NULL:
+            break;
+        case INTEGER:
+        case REAL:
+            ret += varName;
+            break;
+        case TEXT:
+            ret += String.format("[%s copy]", varName);
+            break;
+        case BLOB:
+            break;
+        default:
+            break;
+        }
+        return ret;
+    }
+    
+    public static boolean doesNeedRelease(DataType dataType) {
+        boolean ret = false;
+        switch (dataType) {
+        case NULL:
+        case INTEGER:
+        case REAL:
+            ret = false;
+            break;
+        case TEXT:
+        case BLOB:
+            ret = true;
+            break;
+        default:
+            break;
+        }
         return ret;
     }
     

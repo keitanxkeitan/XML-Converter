@@ -1,6 +1,8 @@
 $headerFile.copyright
 
-@property $headerFile.className : $headerFile.superClassName {
+$headerFile.importSentences
+
+@interface $headerFile.className : $headerFile.superClassName {
  @private
 $headerFile.variableDeclarations
 }

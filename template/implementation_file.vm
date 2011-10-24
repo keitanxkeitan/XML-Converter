@@ -1,0 +1,10 @@
+$implementationFile.copyright
+
+$implementationFile.importSentences
+
+@implementation $implementationFile.className
+$implementationFile.synthesizes
+
+$implementationFile.methods
+
+@end

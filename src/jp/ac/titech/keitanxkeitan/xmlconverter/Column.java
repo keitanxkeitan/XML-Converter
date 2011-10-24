@@ -75,4 +75,37 @@ public class Column implements Element {
         return ret;
     }
     
+    /**
+     * シンセサイズを得る。
+     * @return シンセサイズ
+     */
+    public String getSynthesize() {
+        String ret = new String();
+        ret += ObjcUtil.createSynthesize(CommonUtil.toLowerCamelCase(mName));
+        return ret;
+    }
+    
+    /**
+     * イニシャライズを得る。
+     * @return イニシャライズ
+     */
+    public String getInitialize() {
+        String ret = new String();
+        ret += CommonUtil.toLowerCamelCase(mName) + " = "
+                + ObjcUtil.createRetainSentence(mDataType, mName) + ";";
+        return ret;
+    }
+    
+    /**
+     * リリースを得る。
+     * @return リリース
+     */
+    public String getRelease() {
+        String ret = new String();
+        if (ObjcUtil.doesNeedRelease(mDataType)) {
+            ret += "[" + ObjcUtil.toClassMemberVariableName(mName) + " release]";
+        }
+        return ret;
+    }
+    
 }
