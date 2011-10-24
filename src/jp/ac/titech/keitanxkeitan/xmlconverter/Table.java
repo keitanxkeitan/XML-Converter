@@ -1,8 +1,6 @@
 package jp.ac.titech.keitanxkeitan.xmlconverter;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -55,12 +53,7 @@ public class Table implements Element {
 
             String fileName = getDtoClassName() + ".h";
             String filePath = String.format("%s/%s", dirPath, fileName);
-
-            File file = new File(filePath);
-            FileWriter fw;
-            fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
+            PrintWriter pw = CommonUtil.getPrintBufferedFileWriter(filePath);
             
             // ファイルの内容を作成する
             

@@ -2,7 +2,7 @@ $headerFile.copyright
 
 @property $headerFile.className : $headerFile.superClassName {
  @private
-  $headerFile.variableDeclarations
+$headerFile.variableDeclarations
 }
 $headerFile.propertyDeclarations
 

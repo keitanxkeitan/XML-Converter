@@ -1,6 +1,7 @@
 package jp.ac.titech.keitanxkeitan.xmlconverter;
 
 import java.io.StringWriter;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;

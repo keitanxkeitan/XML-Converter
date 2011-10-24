@@ -1,5 +1,10 @@
 package jp.ac.titech.keitanxkeitan.xmlconverter;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,6 +104,21 @@ public class CommonUtil {
         String ret = sw.toString();
         sw.flush();
         return ret;
+    }
+        
+    /**
+     * 与えられたパスにあるファイルに書き込む Buffered Print Writer を得る。
+     * @param filePath 書き込むファイルのパス
+     * @return 与えられたパスにあるファイルに書き込む Buffered Print Writer
+     * @throws IOException
+     */
+    public static PrintWriter getPrintBufferedFileWriter(String filePath) throws IOException {
+        File file = new File(filePath);
+        FileWriter fw;
+        fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+        return pw;
     }
     
 }
